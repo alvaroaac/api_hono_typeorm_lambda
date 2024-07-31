@@ -5,11 +5,11 @@ import { User } from './entity/User';
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "bemtevi-development.cdgkm8a06tqs.sa-east-1.rds.amazonaws.com",
+    host: process.env.DB_HOST,
     port: 5432,
-    username: "postgres",
-    password: "postgres",
-    database: "bemtevi-development",
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     ssl: {
         rejectUnauthorized: false, // Adjust this based on your SSL requirements
     },
