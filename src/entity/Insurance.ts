@@ -5,25 +5,24 @@ export class Insurance extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
 
-    @Column()
+    @Column({ type: 'varchar' })
     policyNumber!: string;
 
-    @Column()
+    @Column({ type: 'varchar' })
     policyHolderName!: string;
 
-    @Column()
+    @Column({ type: 'date' })
     startDate!: Date;
 
-    @Column()
-    endDate!: Date;
+    @Column({ type: 'date', nullable: true })
+    endDate?: Date;
 
-    @Column()
-    premiumAmount!: number;
+    @Column({ type: 'decimal', nullable: true })
+    premiumAmount?: number;
 
-    @Column()
-    coverageAmount!: number;
+    @Column({ type: 'decimal', nullable: true })
+    coverageAmount?: number;
 
-    @Column()
+    @Column({ type: 'varchar' })
     status!: string;
-
 }

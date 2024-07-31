@@ -3,10 +3,10 @@ import { createInsurance, deleteInsurance, getInsurance, getInsurances, updateIn
 
 const insurance = new Hono();
 
-insurance.get('/', (c: Context) => getInsurances)
-insurance.get('/:id', (c: Context) => getInsurance)
-insurance.post('/', (c: Context) => createInsurance)
-insurance.put('/', (c: Context) => updateInsurance)
-insurance.delete('/', (c: Context) => deleteInsurance)
+insurance.get('/', getInsurances)
+insurance.get('/:id', getInsurance)
+insurance.post('/', createInsurance)
+insurance.put('/', updateInsurance)
+insurance.delete('/', deleteInsurance)
 
 export { insurance };

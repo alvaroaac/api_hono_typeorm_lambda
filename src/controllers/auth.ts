@@ -1,5 +1,6 @@
 import { Context } from 'hono';
 import { User } from '../entity/User';
+// import { AppDataSource } from '../database';
 import bcrypt = require('bcryptjs');
 import jwt = require('jsonwebtoken');
 
@@ -7,8 +8,10 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY || 'your-secret-key';
 
 export const signUp = async (c: Context) => {
     try {
+        console.log('Entered the controller');
+        
         const { email, password } = await c.req.json();
-
+        console.log('User info: ', JSON.stringify({ email, password }));
         // Check if the user already exists
         const existingUser = await User.findOneBy({ email });
         if (existingUser) {
@@ -21,7 +24,7 @@ export const signUp = async (c: Context) => {
         await user.save();
 
         return c.json({ message: 'User created successfully' }, 201);
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error signing up', error: error.message }, 500);
     }
 };
@@ -37,7 +40,7 @@ export const signIn = async (c: Context) => {
 
         const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: 36000 });
         return c.json({ token });
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error signing in', error: error.message }, 500);
     }
 };

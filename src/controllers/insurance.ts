@@ -7,16 +7,18 @@ export const createInsurance = async (c: Context) => {
         const insurance = Insurance.create(data);
         const result = await insurance.save();
         return c.json(result, 201);
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error creating insurance', error: error.message }, 500);
     }
 };
 
 export const getInsurances = async (c: Context) => {
     try {
+        console.log('Entered request GET: Insurances');
+        
         const insurances = await Insurance.find();
         return c.json(insurances);
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error fetching insurances', error: error.message }, 500);
     }
 };
@@ -28,7 +30,7 @@ export const getInsurance = async (c: Context) => {
             return c.json(insurance);
         }
         return c.json({ message: 'Insurance not found' }, 404);
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error fetching insurance', error: error.message }, 500);
     }
 };
@@ -42,7 +44,7 @@ export const updateInsurance = async (c: Context) => {
             return c.json(result);
         }
         return c.json({ message: 'Insurance not found' }, 404);
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error updating insurance', error: error.message }, 500);
     }
 };
@@ -55,7 +57,7 @@ export const deleteInsurance = async (c: Context) => {
             return c.json({ message: 'Insurance deleted successfully' }, 200);
         }
         return c.json({ message: 'Insurance not found' }, 404);
-    } catch (error) {
+    } catch (error: any) {
         return c.json({ message: 'Error deleting insurance', error: error.message }, 500);
     }
 };

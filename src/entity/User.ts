@@ -3,19 +3,19 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
 @Entity()
 export class User extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn('uuid')
+    id!: number
 
-    @Column()
-    firstName: string
+    @Column({ type: 'varchar', nullable: true })
+    firstName?: string
 
-    @Column()
-    lastName: string
+    @Column({ type: 'varchar', nullable: true })
+    lastName?: string
 
-    @Column()
-    email: string
+    @Column({ type: 'varchar' })
+    email!: string
 
-    @Column()
-    password: string
+    @Column({ type: 'varchar' })
+    password!: string
 
 }

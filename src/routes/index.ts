@@ -7,7 +7,7 @@ const router = new Hono()
 
 router.route('/auth', auth) // public
 
-router.use('/insurances', authMiddleware)
+router.use('/insurances/*', authMiddleware)
 
 router.route('/insurances', insurance) // protected
 
