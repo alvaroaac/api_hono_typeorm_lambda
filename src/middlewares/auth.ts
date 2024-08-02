@@ -1,5 +1,6 @@
 import { Context } from 'hono';
 import jwt = require('jsonwebtoken');
+import { initializeDatabase } from '../database';
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'your-secret-key';
 
@@ -14,6 +15,7 @@ export const authMiddleware = async (c: Context, next: () => Promise<void>) => {
     const token = authHeader.split(' ')[1];
     try {
         jwt.verify(token, SECRET_KEY);
+        await initializeDatabase()
         await next();
     } catch (error: any) {
         return c.json({ message: 'Invalid or expired token', error: error.message }, 401);

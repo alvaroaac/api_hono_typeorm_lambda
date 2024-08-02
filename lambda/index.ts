@@ -3,6 +3,7 @@ import { Hono } from 'hono';
 import { handle } from 'hono/aws-lambda';
 import indexRouter from '../src/routes';
 import { initializeDatabase } from '../src/database';
+import { cors } from 'hono/cors';
 
 // Create the Hono application instance
 const app = new Hono();
@@ -31,6 +32,7 @@ export const handler = async (event: any, context: any) => {
             await initialize(); // Ensure initialization completes
             // Setup routes
             app.get('/', (c) => c.text('Hello Hono!'));
+            app.use('/api/*', cors())
             app.route('/api', indexRouter);
         } catch (error) {
             console.error('Initialization failed:', error);

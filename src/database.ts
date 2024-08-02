@@ -20,10 +20,14 @@ export const AppDataSource = new DataSource({
     subscribers: [],
 })
 
+let isDataBaseInitialized = false
+
 export const initializeDatabase = async () => {
+    if (isDataBaseInitialized) { return }
     try {
         await AppDataSource.initialize();
         console.log('LOG: Data Source has been initialized!');
+        isDataBaseInitialized = true;
     } catch (err) {
         console.error('Error during Data Source initialization:', err);
     }
