@@ -9,8 +9,11 @@ export const signUp = async (c: Context) => {
     try {
         console.log('Entered the controller');
         
-        const { email, password } = await c.req.json();
-        console.log('User info: ', JSON.stringify({ email, password }));
+        const { email, password, firstName, lastName } = await c.req.json();
+        if (!email || !password) {
+            return c.json({ message: 'Email and Password are mandatory' }, 400)
+        }
+        // console.log('User info: ', JSON.stringify({ email, password }));
         // Check if the user already exists
         const existingUser = await User.findOneBy({ email });
         if (existingUser) {
@@ -19,7 +22,7 @@ export const signUp = async (c: Context) => {
 
         // Hash the password and save the new user
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = User.create({ email, password: hashedPassword });
+        const user = User.create({ firstName, lastName, email, password: hashedPassword });
         await user.save();
 
         return c.json({ message: 'User created successfully' }, 201);
@@ -32,6 +35,9 @@ export const signIn = async (c: Context) => {
     try {
         
         const { email, password } = await c.req.json();
+        if (!email || !password) {
+            return c.json({ message: 'Email and Password are mandatory' }, 400)
+        }
         const user = await User.findOneBy({ email });
 
         if (!user || !(await bcrypt.compare(password, user.password))) {

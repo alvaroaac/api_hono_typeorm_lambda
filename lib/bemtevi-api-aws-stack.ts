@@ -16,7 +16,7 @@ export class BemteviApiAwsStack extends cdk.Stack {
       entry: 'lambda/index.ts',
       handler: 'handler',
       runtime: lambda.Runtime.NODEJS_20_X,
-      timeout: cdk.Duration.seconds(10),
+      timeout: cdk.Duration.seconds(15),
       environment: {
         JWT_SECRET_KEY: process.env.JWT_SECRET_KEY!,
         DB_HOST: process.env.DB_HOST!,
